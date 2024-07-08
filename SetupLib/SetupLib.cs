@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.Configuration.Install;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SetupLib
@@ -19,8 +15,35 @@ namespace SetupLib
 
         public override void Install(IDictionary stateSaver)
         {
-            MessageBox.Show("Custom action happens");
+            string language = GetProvidedParameter("Language");
+            if (language != null)
+            {
+                SetCulture(language);
+            }
+                
+            MessageBox.Show(Properties.Resources.MessageBox_Message);
+
             base.Install(stateSaver);
+        }
+
+        private string GetProvidedParameter(string parameterName)
+        {
+            try
+            {
+                return this.Context.Parameters[parameterName] as string;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private void SetCulture(string language)
+        {
+            Thread.CurrentThread.CurrentCulture =
+                System.Globalization.CultureInfo.GetCultureInfo(language);
+            Thread.CurrentThread.CurrentUICulture =
+                System.Globalization.CultureInfo.GetCultureInfo(language);
         }
     }
 }
