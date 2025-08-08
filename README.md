@@ -5,7 +5,7 @@ Creation of **MSI** package with localization for different languages.
 
 
 Solution contains 3 projects:
-1) **BasicApplication** - console project to be installed.
+1) **BasicApplication** - *your* project to be installed.
 2) **Setup** - Visual Studio Installer project.
 3) **SetupLib** - Class library that defines **custom actions** for installer project and uses Windows Forms.
 
